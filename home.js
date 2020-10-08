@@ -30,6 +30,7 @@ $(document).ready(function () {
 	var modal = document.getElementById("myModal");
 	var span = document.getElementsByClassName("close")[0];
 	var addproduct = document.getElementsByClassName("btn-addproduct");
+	var totalPrice =0;
 	$('.count').text(0)
 	var countCart = $('.count').text();
 	$('.myBtn').click(function () {
@@ -45,7 +46,7 @@ $(document).ready(function () {
 	}
 	$('.btn-addproduct').click(function () {
 		modal.style.display = "none";
-		debugger
+		countCart = $('.count').text()
 		var countInt = parseInt(countCart);
 		countInt += 1;
 		$('.count').text(countInt);
@@ -63,7 +64,7 @@ $(document).ready(function () {
 
 		$('.item_2').removeClass('hidden');
 		$('.item-cart_empty').addClass('hidden');
-		var totalPrice = parseInt(price) * parseInt(quantity);
+		 totalPrice = totalPrice +  parseInt(price) * parseInt(quantity);
 		$('#total-view-cart').text(totalPrice);
 
 		var $tr = $('<tr class="item_2">').append(
@@ -75,7 +76,10 @@ $(document).ready(function () {
 		).appendTo('#clone-item-cart');
 
 	});
-
+	var url_string = window.location.href 
+	var url = new URL(url_string);
+	var mid = url.searchParams.get("mid");
+	console.log(mid)
 	$('.linktocheckout').click(function () {
 		var data = ' ';
 		$("#clone-item-cart  tbody").find('tr').each(function (i, el) {
@@ -87,7 +91,7 @@ $(document).ready(function () {
 
 			data += productName + '-Topping: ' + topping + '-Số lượng : ' + quantity + '-Tổng tiền: ' + (parseInt(quantity) * parseInt(Number(price.replace(/[^\d.]/g, '')))) + " \n";
 		})
-		axios.post(' https://ahachat.com/api/bots/12404829/users/3824547807572463/send', {
+		axios.post(' https://ahachat.com/api/bots/12404829/users/'+mid+'/send', {
 			ahachat_token: '53da21bea032562f54883db2f15f0cd7a084cfdd598aa21e25a275eefd0858fa',
 			ahachat_message_tag: 'NON_PROMOTIONAL_SUBSCRIPTION',
 			ahachat_block_name: 'xacnhan',
