@@ -35,6 +35,11 @@ $(document).ready(function () {
 	var countCart = $('.count').text();
 	$('.myBtn').click(function () {
 		modal.style.display = "block";
+		
+		var contentFood = $(this).find($('.content-food')).text().trim();
+		console.log($(this).find($('.content-food')))
+		var contentPrice = $(this).find($('.content-price')).text().trim();
+		console.log( contentFood + contentPrice)
 	})
 	span.onclick = function () {
 		modal.style.display = "none";
